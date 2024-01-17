@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="/src/img/logo.png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CONTRUCAM S.A</title>
+</head>
+
+
+<body>
+  <nav>
+    <div class="logo mb-3">CONTRUCAM S.A</div>
+    <div><img class="logo-img" src="./src/img/logo.png" width="100px" /></div>
+  </nav>
+  <main>
+    <div class="container">
+
+
+      <!--TABLE TO SHOW RENTED MACHINES-->
+      <div class="row">
+        <div class="col-md-6" id="seccion-producto">
+          <div class="seccion-titulos">
+            <h2>Historial Maquinas</h2>
+            <div><img src="./src/img/deliver_product.png" width="100px" /></div>
+          </div>
+          <div class="seccion-flexed">
+
+            <button id="add-product-button" class="btn btn-primary mb-3">
+              <i class="fa-solid fa-plus">&#xf07a;</i>
+              <span class="btn-label">Rentar</span>
+            </button>
+
+            <button id="cart-button" class="btn btn-secondary mb-3">
+              <i class="fa-solid fa-eye"></i>
+              Maquinas Listas Para Entregar</button>
+          </div>
+          <table class="table" id="tablamaquina">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Cliente</th>
+                <th scope="col">Maquina</th>
+                <th scope="col">Importe</th>
+                <th scope="col">Fecha Entrega</th>
+                <th scope="col">Fecha Devolución</th>
+                <th scope="col">Acción</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+
+
+        <!--TABLE TO SHOW MACHINES READY TO MAKE DELIVERY-->
+        <div class="col-md-6" id="seccion-carro" style="display: none;">
+          <div class="seccion-titulos">
+            <h2>Maquinas listas</h2>
+            <div><img src="./src/img/return_product.png" width="100px" /></div>
+          </div>
+          <button id="products-button" class="btn btn-secondary mb-3">
+            <i class="fa-solid fa-eye"></i>
+            Historial Maquinas</button>
+          <table class="table" id="tablacarro">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Cliente</th>
+                <th scope="col">Maquina</th>
+                <th scope="col">Fecha Entrega</th>
+                <th scope="col">Fecha Devolución</th>
+                <th scope="col">Días</th>
+                <th scope="col">Fecha Actual</th>
+                <th scope="col">Importe</th>
+                <!--<th scope="col">Precio final</th>-->
+                <th scope="col">Acción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Here will add all the products rows on the carrito-->
+            </tbody>
+          </table>
+
+          <button class="btn btn-success" id="makeDelivery">
+            <i class="fa-solid fa-truck-ramp-box"></i>
+            Entregar Maquinas</button>
+<!--
+          <p id="total"></p>
+          <p id="garantia"></p>
+          <p id="multa"></p>
+          <p id="igual"></p>
+          <p id="multatotal"></p>-->
+          
+          <br>
+          <br>
+          <h3 class="titleFactura">FACTURA TOTAL</h3>
+          <table>
+            <tr>
+              <td>SUBTOTAL:</td>
+              <td id="total"></td>
+            </tr>
+            <tr>
+              <td>GARANTIA:</td>
+              <td id="garantia"></td>
+            </tr>
+            <tr>
+              <td>MULTA:</td>
+              <td id="multa"></td>
+            </tr>
+            <tr>
+              <td>TOTAL FINAL</td>
+              <td id="multatotal"></td>
+            </tr>
+          </table>
+
+        </div>
+
+        <!--FORM TO EDIT/INSERT MACHINES-->
+        <form id="frmedit" class="container-editform form-row">
+          <h2>Rentar Maquina</h2>
+          <div class="form-row ">
+            <div class="mb-3 form-column-padding">
+              <label for="txtcod" class="form-label">
+                <i class="fa-solid fa-code"></i>
+                Codigo Tarifa</label>
+              <div>
+                <input type="text" id="txtcod" name="txtcod" disabled>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="txtnom" class="form-label">
+                <i class="fa-solid fa-code"></i>
+                Nombre Cliente</label>
+              <div>
+                <input type="text" id="txtnom" name="txtnom">
+              </div>
+            </div>
+            
+          </div>
+
+          <div class="form-row">
+            <div class="mb-3">
+              <label for="maquinaria" class="form-label">
+                <i class="fa-solid fa-paperclip"></i>
+                Tipo de Maquinaria</label>
+              <div>
+                <select id="maquinaria" name="maquinaria" onchange="updateParams()">
+                  <option value="defaultvalue" selected disabled>Elija una maquinaria</option>
+                  <option value="Tractores">Tractores</option>
+                  <option value="Mezcladores">Mezcladores</option>
+                  <option value="Volquetas">Volquetas</option>
+                </select>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="preciobase" class="form-label">
+                <i class="fa-solid fa-dollar-sign"></i>
+                Tarifa base</label>
+              <div>
+                <input type="text" id="txtprecio" name="txtprecio" disabled>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="mb-3 ">
+              <label for="fechaentrega" class="form-label">
+                <i class="fa-regular fa-calendar-plus"></i>
+                Fecha de Entrega</label>
+              <div>
+                <input type="text" id="fechaentrega" name="datetime">
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="fechadevolucion" class="form-label">
+                <i class="fa-regular fa-calendar-plus"></i>
+                Fecha de Devolucion</label>
+              <div>
+                <input type="text" id="fechadevolucion" name="fechadevolucion">
+              </div>
+            </div>
+            <input type="hidden" id="maquinaria-index">
+          </div>
+          <div class="seccion-producto">
+            <button type="submit" class="btn btn-primary">
+              <i class="fa-solid fa-truck-front"></i>
+              Alquilar Maquina</button>
+              <button type="button" class="btn btn-danger" id="cancelButton">
+                Cancelar
+              </button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </main>
+  <footer>
+    <p>&copy; Programacion movil - Leccion 01 - Prieto Jeremy</p>
+  </footer>
+  <script type="module" src="/src/main.ts"></script>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+    $(function () {
+      $("#fechaentrega").datepicker({
+        dateFormat: 'dd/mm/yy',
+        showOtherMonths: true,
+        selectOtherMonths: true,
+      });
+
+      var fechaActual = new Date();
+      var fecha01 = fechaActual.toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit',year:'numeric'})
+
+      $("#fechaentrega").datepicker("setDate", fecha01);
+    });
+
+    $(function () {
+      $("#fechadevolucion").datepicker({
+        //minDate: 0,
+        dateFormat: 'dd/mm/yy',
+        showOtherMonths: true,
+        selectOtherMonths: true,
+      });
+
+      
+      var fechaActual = new Date();
+      var fecha01 = fechaActual.toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit',year:'numeric'})
+      $("#fechadevolucion").datepicker("setDate", fecha01);
+    });
+
+    function updateParams() {
+      var select = document.getElementById("maquinaria");
+      var codigoInput = document.getElementById("txtcod");
+      var precioinput = document.getElementById("txtprecio");
+
+      var selectedValue = select.value;
+
+      switch (selectedValue) {
+        case "Tractores":
+          codigoInput.value = "C01";
+          precioinput.value = "100";
+          break;
+        case "Mezcladores":
+          codigoInput.value = "C02";
+          precioinput.value = "50";
+          break;
+        case "Volquetas":
+          codigoInput.value = "C03";
+          precioinput.value = "150";
+          break;
+        default:
+          codigoInput.value = "";
+          break;
+      }
+    }
+  </script>
+
+</body>
+
+</html>

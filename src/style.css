@@ -1,0 +1,215 @@
+@import url('https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css');
+
+body {
+  font-family: sans-serif ;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(#141e30, #243b55);
+  /*background-image: url('bg.png'); /* Reemplaza 'tu-imagen.jpg' con la ruta de tu imagen */
+  background-size: cover;
+  color: #fff;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  margin-bottom: 80px; /* Añadir margen inferior para el footer */
+  margin-top: 30px;
+}
+
+.container-editform {
+  padding-top: 10px;
+  filter: drop-shadow(0px 0px 10px #474ead);
+
+  display: flex;
+  flex-direction: column;
+  max-width: 600px; /* Adjust the max-width as needed */
+  margin: 0 auto;  /* Center the form */
+}
+
+.form-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-column {
+  flex: 1;
+}
+
+.form-column-padding{
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /*height: 60px;*/
+  background-color: #000000;
+  padding-bottom: 10px;
+  padding-top: 5px;
+}
+
+.logo {
+  font-size: 24px;
+  font-family: fantasy;
+  font-weight: bold;
+  color: #fff;
+  filter: drop-shadow(0px 0px 10px #116466);
+}
+
+.logo-img {
+  filter: drop-shadow(0px 0px 10px #116466);
+}
+
+main {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+  margin-top: -50px;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+}
+
+#seccion-producto, #seccion-carro {
+  min-width: 100%; /* Asegurarse de que el contenedor tenga un ancho mínimo del 100% */
+  min-height: 500px;
+  /*box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.19), 0px 6px 6px rgba(0, 0, 0, 0.23);*/
+
+  background: rgba(0,0,0,.5);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0,0,0,.6);
+
+
+  border-radius: 10px;
+  padding: 20px;
+  /*
+  background-color: #fff;*/
+  color: #ffffff;
+}
+
+#seccion-producto {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h2 {
+  text-align: center;
+  color: #ffffff;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+table, th, td {
+  border: 1px solid #ffffff;
+  color: white
+}
+
+th, td {
+  padding: 10px;
+  text-align: center;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+}
+
+button:hover {
+  background-color: white;
+  color: black;
+}
+
+.seccion-producto {
+  display: flex;
+  justify-content: space-between;
+}
+
+.seccion-titulos {
+  display: flex;
+  justify-content: center;
+  align-items:center;
+}
+
+.seccion-producto button {
+  margin: 0;
+}
+
+footer {
+  background-color: #000000;
+  color: #ddd;
+  text-align: center;
+  /*padding: 10px;*/
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  padding-top: 1px;
+  /*height: 40px; /* Asegúrate de que la altura del footer sea la misma que el margen inferior del contenedor */
+}
+
+.nav-buttons {
+  position: absolute;
+  right: 20px;
+}
+
+.nav-button {
+  margin-left: 10px;
+}
+
+form {
+  background-color: #000000;
+  padding: 20px;
+  border-radius: 10px;
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+
+form label {
+  font-weight: bold;
+}
+
+form button {
+  width: 100%;
+}
+
+#tabla-resultado {
+  justify-content: center;
+  align-items: center;
+}
+
+#table-resu {
+  width: 400px; /* Adjust as needed */
+  border-collapse: collapse;
+}
+
+/* Style table cells */
+#td-result {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.titleFactura{
+  text-align: center;
+  filter: drop-shadow(0px 0px 10px #116466);
+}
