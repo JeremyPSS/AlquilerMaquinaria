@@ -2,9 +2,15 @@ import './style.css'
 import Cliente from './entidad/Cliente'
 import Maquinaria   from './entidad/Maquinaria';
 import { TLista } from './controlador/TLista.ts';
+import { ClientDB } from './firebase/conexion.ts';
+import { listClients } from './firebase/manage.ts';
+
+
+let counter = 0;
 
 const Lista = new TLista();
 const carrito: Cliente[] = [];
+const clienteDB = new ClientDB;;
 
 /**FORM TO INSERT MACHINES */
 document.getElementById('frmedit')?.addEventListener('submit', (event) => {
@@ -99,6 +105,26 @@ document.getElementById('makeDelivery')?.addEventListener('click', () => {
   //document.getElementById('multatotal')!.textContent = `Precio Total: $${totalfinal}`;
   document.getElementById('multatotal')!.textContent = ` $${totalfinal}`;
   alert('Has devuelto la maquinaria a CONTRUCAM S.A exitosamente');
+  
+  counter = 0;
+  //carrito.splice(0,1);
+  //updateSecundaryTable();
+
+  //SAVING THE CALCULATED TADA IN DB 
+  try{
+    if(carrito.length > 0){
+      clienteDB.saveClient(
+        carrito[0].nomCliente, 
+        carrito[0].maquina.nomMaquinaria ,
+        String(carrito[0].fechaEntrega.toLocaleDateString('es-ES')), 
+        String(carrito[0].fechaEvolucion.toLocaleDateString('es-ES')),
+        totalfinal, 
+        multa);
+    }
+  }catch(e){
+    console.log("Error saving the client of DB");
+  }
+  listClients();
 
 });
 
@@ -126,9 +152,14 @@ function updateMainTable() {
     addToCartButton.textContent = 'Preparar entrega';
     addToCartButton.classList.add('btn', 'btn-success', 'mr-2');
     addToCartButton.addEventListener('click', () => {
-      carrito.push(cliente);
-      updateSecundaryTable();
-      alert('PREPARADO, Enviado a MAQUINAS LISTAS!!');
+      if(counter == 0){
+        carrito.push(cliente);
+        updateSecundaryTable();
+        alert('PREPARADO, Enviado a MAQUINAS LISTAS!!');
+        counter = 1;
+      }else{
+        alert('YA TIENE UN MAQUINA LISTA, PORFAVOR ENTREGELA A ESA PRIMERO!!');
+      }
     });
     acciones.appendChild(addToCartButton);
 
@@ -217,9 +248,10 @@ function updateSecundaryTable() {
     removeFromCartButton.classList.add('btn', 'btn-danger');
     removeFromCartButton.dataset.index = index.toString();
     removeFromCartButton.addEventListener('click', () => {
-    const index = Number(removeFromCartButton.dataset.index);
-    carrito.splice(index, 1);
-    updateSecundaryTable();
+      const index = Number(removeFromCartButton.dataset.index);
+      carrito.splice(index, 1);
+      updateSecundaryTable();
+      counter = 0;
     });
     acciones.appendChild(removeFromCartButton);
   });
@@ -243,6 +275,7 @@ document.getElementById('cart-button')?.addEventListener('click', () => {
   if (productSection && cartSection) {
     productSection.style.display = 'none'; //element will start on a new line and take full width available
     cartSection.style.display = 'block'; //remove the element from the document flow
+    listClients();
   }
 });
 
